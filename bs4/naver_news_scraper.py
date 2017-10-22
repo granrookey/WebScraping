@@ -25,8 +25,21 @@ def getArticle():
     article =[]
     for article_link in pages:
         bsObj = BeautifulSoup(urlopen(article_link), "html.parser")
-        print (bsObj.find(id = "articleBodyContents"))
-        print (bsObj.find(id = "articleBodyContents").get_text())
+        contents = bsObj.find(id = "articleBodyContents").stripped_strings
+        print(contents.text)
+        # for string in contents:
+        #     if re.search(r'(_flash_removeCallback() {})', string):
+        #         contents = re.split(r'(_flash_removeCallback() {})', contents)[1]
+
+        #     if re.search(r'(\s)+기자', string):
+        #         contents = re.split(r'(\s)+기자', contents)[0]
+
+        #     if re.search(r'(기자단)$', string):
+        #         contents = re.split(r'(기자단)$', contents)[0]
+
+        #     print (string)
+
+        print('-------------------------------------------------------------')
         article.append({"title": bsObj.find(id = "articleTitle").get_text() , "contents": bsObj.find(id = "articleBodyContents").get_text()})
 
 getLinks("")
